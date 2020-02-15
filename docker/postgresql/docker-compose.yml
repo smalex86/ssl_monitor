@@ -6,9 +6,9 @@ services:
     container_name: db_postgres11
     environment:
       - POSTGRES_PASSWORD='12345678'
-    volumes:
-      - ../postgresql/db/data/:/var/lib/postgresql/data
-      - ../postgresql/dumps:/home
+#    volumes:
+#      - ../../../sslmonitor-tmp/pg/data/:/var/lib/postgresql/data
+#      - ../../../sslmonitor-tmp/pg/dumps:/home
     ports:
       - 5432:5432
     network_mode: host
