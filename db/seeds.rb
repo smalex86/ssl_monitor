@@ -1,12 +1,7 @@
-statuses = [
-  [1, 'Сертификат истекает менее чем через 2 недели'],
-  [2, 'Сертификат истекает менее чем через 1 неделю'],
-  [3, 'Сертификат истек'],
-  [4, 'Ошибка SSL'],
-  [5, 'Ошибка установки соединения, не связанная с SSL'],
-  [6, 'Все хорошо']
-]
-
-statuses.each do |code, name|
-  Status.create(code: code, name: name)
-end
+# This file should contain all the record creation needed to seed the database with its default values.
+# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
+#
+# Examples:
+#
+#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
+#   Character.create(name: 'Luke', movie: movies.first)
