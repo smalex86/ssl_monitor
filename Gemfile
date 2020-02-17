@@ -31,10 +31,14 @@ gem 'bootsnap', '>= 1.4.2', require: false
 # grape
 gem 'grape'
 gem 'grape-entity'
+gem 'grape_on_rails_routes'
 
 # sidekiq
 gem 'sidekiq'
 gem 'sidekiq-scheduler'
+
+# postgres
+gem 'pg'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -50,7 +54,7 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
 
   gem 'solargraph'
-  
+
   # rebocop
   gem 'rubocop'
   gem 'rubocop-performance'

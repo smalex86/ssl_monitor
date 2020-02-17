@@ -1,0 +1,16 @@
+version: "3.3"
+
+services:
+  db:
+    image: postgres:11
+    container_name: db_postgres11
+    environment:
+      - POSTGRES_PASSWORD='12345678'
+#    volumes:
+#      - ../../../sslmonitor-tmp/pg/data/:/var/lib/postgresql/data
+#      - ../../../sslmonitor-tmp/pg/dumps:/home
+    ports:
+      - 5432:5432
+    network_mode: host
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"] # check service
