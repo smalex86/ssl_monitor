@@ -1,24 +1,62 @@
-# README
+# Мониторинг сертификатов SSL
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Описание функционала
 
-Things you may want to cover:
+Приложение реализует следующий функционал:
+* В базу добавляются домены, для которых нужно отслеживать
+проблемы с SSL сертификатами
+* Нельзя дважды добавить один и тот же домен
+* У домена есть два статуса - "Всё хорошо" и "Всё плохо"
+* По результатам проверки у домена меняется статус
+* Текст ошибки сохраняется в той же модели
+* Проверки происходят в фоне, раз в 20 минут
+* Подключен веб-интерфейс sidekiq и закрыт Basic-авторизацией
+* Для проверки используется openssl, проверка происходит внутри приложения без
+использования сторонних API и сервисов
+* Интерфейс не реализовыван, только API
 
-* Ruby version
+## API
 
-* System dependencies
+Реализованы следующие методы:
+* `GET /status` - выводит все домены с их текущим состоянием
+* `POST /domain` - добавляет новый домен в список, при добавлении домена выполняется его проверка
 
-* Configuration
+## Запуск приложения
 
-* Database creation
+### 1. Установка гемов
+```ruby
+bundle install
+```
 
-* Database initialization
+## 2. Запуск служб
 
-* How to run the test suite
+Если в системе не установлены postgresql и redis, то запустить их через
+docker-compose:
 
-* Services (job queues, cache servers, search engines, etc.)
+```bash
+cd docker
+./services-up.sh
+```
 
-* Deployment instructions
+Для остановки контейнеров docker использовать следующий скрипт:
+```bash
+cd docker
+./services-down.sh
+```
 
-* ...
+## 3. Создание базы данных и ее структуры
+
+```bash
+rails db:create
+rails db:migrate
+```
+
+## 4. Запуск приложения
+```bash
+rails s
+```
+
+## 5. Запуск sidekiq
+```bash
+bundle exec sidekiq
+```
