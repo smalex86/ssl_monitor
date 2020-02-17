@@ -1,7 +1,6 @@
 module SslMonitor
   module Entities
     class Certificate < Grape::Entity
-      expose :id
       expose :domain, documentation: { type: 'string', desc: 'Домен для проверки' }
       expose :formatted_status, as: :status
       expose :error
@@ -10,7 +9,7 @@ module SslMonitor
       private
 
       def formatted_status
-        object.status.blank? ? 'ok' : 'bad'
+        object.status.to_i.zero? ? 'ok' : 'bad'
       end
     end
   end

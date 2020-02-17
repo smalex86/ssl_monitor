@@ -1,5 +1,12 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+
+  require 'sidekiq/web'
+  require 'sidekiq-scheduler/web'
 
   mount SslMonitor::Base => '/'
+
+  Sidekiq::Web.use Rack::Auth::Basic do |username, password|
+    username == 'admin' && password == '12345678'
+  end
+  mount Sidekiq::Web => '/sidekiq'
 end
