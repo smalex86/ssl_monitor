@@ -4,6 +4,13 @@ class Certificate < ApplicationRecord
   require 'net/http'
   require 'openssl'
 
+  # Коррекция домена перед создание записи
+  before_create do
+    self.domain = URI.parse(domain).host if domain.present?
+    self.error = '' if error.nil?
+    self.status = 0 if status.nil?
+  end
+
   # Выполнить проверку сертификата домена
   def check
     set_ok
@@ -24,8 +31,7 @@ class Certificate < ApplicationRecord
   # Получить сертификат
   # @return [OpenSSL::X509::Certificate]
   def cert
-    host = URI.parse(domain).host
-    uri = URI::HTTPS.build(host: host)
+    uri = URI::HTTPS.build(host: domain)
     response = Net::HTTP.start(uri.host, uri.port, use_ssl: true)
     response.peer_cert
   end
@@ -57,8 +63,20 @@ class Certificate < ApplicationRecord
     end
   end
 
+  # Проверить все
   def self.check
-
+    Certificate.all.each(&:check)
   end
 
+  # Статусы проверки
+  def self.status
+    Certificate.all.order(:domain).map do |c|
+      {
+        id: c.id,
+        domain: c.domain,
+        status: c.status.blank? ? 'ok' : 'bad',
+        error: c.error
+      }
+    end
+  end
 end

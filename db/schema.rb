@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_15_155905) do
+ActiveRecord::Schema.define(version: 2020_02_17_071342) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 2020_02_15_155905) do
     t.datetime "checked_at", comment: "Дата последней проверки"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["domain"], name: "index_certificates_on_domain", unique: true
   end
 
 end
