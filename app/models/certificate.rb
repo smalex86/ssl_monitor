@@ -67,16 +67,4 @@ class Certificate < ApplicationRecord
   def self.check
     Certificate.all.each(&:check)
   end
-
-  # Статусы проверки
-  def self.status
-    Certificate.all.order(:domain).map do |c|
-      {
-        id: c.id,
-        domain: c.domain,
-        status: c.status.blank? ? 'ok' : 'bad',
-        error: c.error
-      }
-    end
-  end
 end
