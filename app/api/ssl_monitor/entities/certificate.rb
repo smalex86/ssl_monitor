@@ -9,7 +9,7 @@ module SslMonitor
       private
 
       def formatted_status
-        object.status.to_i.zero? ? 'ok' : 'bad'
+        object.status.to_i.zero? ? 'Всё хорошо' : 'Всё плохо'
       end
     end
   end

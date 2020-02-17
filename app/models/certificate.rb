@@ -25,7 +25,7 @@ class Certificate < ApplicationRecord
     end
     self.status = 1 if error.present?
     save!
-    puts "Status: #{status}, error: #{error}"
+    puts "Domain: #{domain}, status: #{status}, error: #{error}"
   end
 
   # Получить сертификат

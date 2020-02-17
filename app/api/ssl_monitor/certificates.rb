@@ -15,7 +15,10 @@ module SslMonitor
 
     desc 'Список доменов с их статусами проверки сертификатов'
     get '/status' do
-      present Certificate.all, with: SslMonitor::Entities::Certificate
+      present(
+        Certificate.all.order(:domain),
+        with: SslMonitor::Entities::Certificate
+      )
     end
   end
 end
